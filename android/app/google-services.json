@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "677213643065",
+    "project_id": "c3socialapplication",
+    "storage_bucket": "c3socialapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677213643065:android:039534c666acd523eb08e8",
+        "android_client_info": {
+          "package_name": "com.example.c3_course_social_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtfMjngUZSbaoKd0R3r0s06kfi8ht8JfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
