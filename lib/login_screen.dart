@@ -3,15 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'HomeScreen.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final _key=GlobalKey<FormState>();
     final emailController=TextEditingController();
     final passwordController=TextEditingController();
-    final confirmPasswordController=TextEditingController();
     return Scaffold(
       body:Form(
         key: _key,
@@ -21,7 +20,7 @@ class RegisterScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Register",style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.green,fontWeight: FontWeight.bold),),
+                Text("Login",style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.green,fontWeight: FontWeight.bold),),
 
                 TextFormField(
                   validator: (value){
@@ -32,12 +31,12 @@ class RegisterScreen extends StatelessWidget {
                     return null;
                   },
                   controller: emailController,
-                    decoration: const InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
-                        enabledBorder: OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
-                        focusedBorder:OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
+                      enabledBorder: OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
+                      focusedBorder:OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
                       hintText: "email"
-                    ),
+                  ),
                 ),
 
                 TextFormField(
@@ -59,36 +58,17 @@ class RegisterScreen extends StatelessWidget {
                       hintText: "password"
                   ),
                 ),
-
-                TextFormField(
-                  controller: confirmPasswordController,
-                  validator: (vaule){
-                    if(vaule==null || vaule.isEmpty){
-                      return 'Please enter confirmed password';
-                    }
-                    if(vaule != passwordController.text){
-                      return 'Not matched';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
-                      enabledBorder: OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
-                      focusedBorder:OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
-                      hintText: "confirm password"
-                  ),
-                ),
                 InkWell(
                   onTap: (){
                     if (_key.currentState!.validate()) {
-                      FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text)
-                      .then((value) => {
-                         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen())),
-                       }).catchError((error) => {
+                      FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text)
+                          .then((value) => {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen())),
+                      }).catchError((error) => {
 
-                          ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                           content: Text(error.message),
-                          ))
+                        ))
 
                       });
                     }
@@ -97,7 +77,7 @@ class RegisterScreen extends StatelessWidget {
                     width: double.infinity,
                     child: DecoratedBox(decoration: BoxDecoration(color: Colors.green,borderRadius: BorderRadius.circular(5),),child: const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Center(child: Text("Register")),
+                      child: Center(child: Text("Login")),
                     ),),
                   ),
                 ),

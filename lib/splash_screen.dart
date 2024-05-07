@@ -1,4 +1,7 @@
+import 'package:c3_course_social_app/HomeScreen.dart';
+import 'package:c3_course_social_app/login_screen.dart';
 import 'package:c3_course_social_app/register_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +10,18 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User? user) {
+      if (user != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
+    });
+
     return Scaffold(
       body:Center(
         child: Padding(
@@ -20,10 +35,13 @@ class SplashScreen extends StatelessWidget {
                 height: 300,
                 child: Image.asset("assets/login.jpg"),
               ),
-              Text("Welcome to our company", style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold)),
+              Center(child: Text("Welcome to our company", style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold))),
               InkWell(
                 onTap: (){
-                  //todo navigation
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  );
                 },
                 child: SizedBox(
                   width: double.infinity,
