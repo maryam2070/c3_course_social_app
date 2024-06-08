@@ -11,16 +11,16 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FirebaseAuth.instance
-        .authStateChanges()
-        .listen((User? user) {
-      if (user != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      }
-    });
+    // FirebaseAuth.instance
+    //     .authStateChanges()
+    //     .listen((User? user) {
+    //   if (user != null) {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => const HomeScreen()),
+    //     );
+    //   }
+    // });
 
     return Scaffold(
       body:Center(

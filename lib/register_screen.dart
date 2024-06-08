@@ -1,3 +1,6 @@
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _key=GlobalKey<FormState>();
     final emailController=TextEditingController();
+    final nameController=TextEditingController();
     final passwordController=TextEditingController();
     final confirmPasswordController=TextEditingController();
     return Scaffold(
@@ -22,7 +26,22 @@ class RegisterScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text("Register",style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.green,fontWeight: FontWeight.bold),),
-
+                TextFormField(
+                  validator: (value){
+                    ///////
+                    if(value==null ||value!.isEmpty){
+                      return 'Enter your Name';
+                    }
+                    return null;
+                  },
+                  controller: nameController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
+                      enabledBorder: OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
+                      focusedBorder:OutlineInputBorder( borderSide: BorderSide(color: Colors.green)),
+                      hintText: "name"
+                  ),
+                ),
                 TextFormField(
                   validator: (value){
                     ///////
@@ -83,6 +102,7 @@ class RegisterScreen extends StatelessWidget {
                     if (_key.currentState!.validate()) {
                       FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text)
                       .then((value) => {
+                        FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).set({"email":emailController.text,"name":nameController.text}),
                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen())),
                        }).catchError((error) => {
 
